@@ -1,8 +1,3 @@
-
-
-
-
-
 // function that populates the metadata
 function demoInfo(sample)
 {
