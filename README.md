@@ -1,30 +1,60 @@
-# Web-Design-Challenge
-Repository for HW 11 - Web Design!
+# plotly-challenge
+Repository for HW 14 - Interactive Web Visualizations! 
 
-<!-- index.html -->
-This project starts at the index.html page which only serves to route you to the landingpage.html page. 
+# Thank you to Dr. Arrington for the walkthrough on this project!
 
-<!-- landingpage.html -->
-This is the true homepage for the project, starting with some css styling and overall page bootstrap code.
-The top of the page has a bootstrap nav bar that sports the current page name on the left and the other page links on the right.
-There is a home page, four visualization pages, a data page, and a comparison page.
-This navbar also will darken the link for the current page on the right.
+In this assignment we will build an interactive dashboard to explore the [Belly Button Biodiversity dataset](http://robdunnlab.com/projects/belly-button-biodiversity/), which catalogs the microbes that colonize human navels.
 
-Into the body of the page, we show a summary of the project on the left and the list panel of visualization on the right.
+## app.js
 
-<!-- Vis 1 - 4 -->
-This page show the deeper details of the current Vis. It has the main graph's comparison to latitude (Max Temp) as well a paragraph explaining the graph. 
-It also has the same panel of graphs on the right, but also has a box around the current one.
+* In this file we will build the background code that will collect and functionally utilize the data in our `samples.json`.
+* All the functions within will connect to our `index.html` file that will display the webpage
 
-<!-- Data -->
-This page has the complete table of data used to for the graphs.
-This data was originally in a CSV and was converted to HTML with the "csv_to_html" jupyter notebook in the project file.
-The original and output files were renamed to show appropriately.
+### demoInfo
+* Use D3 to read in `samples.json`
+* Grab the metadata and filter based off of id
+* Grab the index 0 item of the array
+* Clear the metadata so it does not stack every time a new id is selected
+* Use Objecct.entries to grab the key/value pairs
+    - For each pair, add the corresponding metadata to the demographics section
 
-<!-- Comparison -->
-This page show all four of the visualizations together, able to be clicked on.
-The images are laid out in a table that will show two next to one another on medium to large screens.
-It will shrink to one per row on smaller screens.
+### buildBarChart
+* Use D3 to read in `samples.json`
+* Grab all of the samples and filter on id
+* Grab the index 0 item of the array
+* Grab the otu_ids, labels, and sample_values
+* Then build the bar chart
+    - Define Y values as the otu_ids
+    - Define X values as the sample_values
+    - Define the labels as the otu_labels
+    - Set the title & then plot using `Plotly.newPlot("bar"...)`
 
-<!-- End -->
-And that's about it! Thanks for checking out my project.
+### buildBubbleChart
+* Use D3 to read in `samples.json`
+* Grab all of the samples and filter on id
+* Grab the index 0 item of the array
+* Grab the otu_ids, labels, and sample_values
+* Then build the bubble chart
+    - Define Y values as the sample_values
+    - Define X values as the otu_ids
+    - Define the markers
+        * Size relative to the sample_values
+        * Colors relative to the otu_ids
+    - Set the chart title, xaxis title, and set hovermode to "closest"
+    - Then plot using `Plotly.newPlot("bubble"...)`
+
+### initialize
+* Use D3 to read in `samples.json`
+* Grab the dropdown selector from the index.html file - `#selDataset`
+* Grab the samples names and create an array of them
+* Use forEach loop to create options for each sample name read in
+* Pass the info for the first sample
+* Call all of the other functions and build the dashboard
+
+### optionChanged
+* This updates the dashboard when a new id is selected
+* It re-calls all the other functions
+
+## call the initialize() function!
+
+And that's it! I may take the time to figure out the bonus, but here's the finished base assignment.
